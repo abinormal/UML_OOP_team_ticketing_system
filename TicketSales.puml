@@ -1,0 +1,85 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+OrderChannel <|.. AppIOs
+OrderChannel <|.. AppAndroid
+OrderChannel <|.. AppDesktop
+
+Payment <|-- PayPal
+Payment <|-- GPay
+Payment <|-- ApplePay
+Payment <|-- CreditCard
+
+Order o-- AppDesktop
+Order o-- AppAndroid
+Order o-- AppIOs
+
+Order "1" -- "1" Payment
+
+Ticket "many" }-- "1" Order
+Ticket "many" }-- "1" Concert
+Order "many" }-- "1" User
+
+interface OrderChannel {
+    + getIP(): String
+}
+abstract Payment {
+    + {abstract} makePayment (amount, float) : boolean
+}
+class User {
+    - id : int
+    - name : String
+    - email : String
+    - phone : int
+    + getUser(): String[]
+}
+class Ticket {
+    - price : float
+    - quantity : int
+}
+class AppIOs {
+    - IP : String
+    + getIP(): String
+}
+class AppAndroid {
+    - IP : String
+    + getIP(): String
+}
+class AppDesktop {
+    - IP : String
+    + getIP(): String
+}
+class PayPal {
+    + makePayment (amount, float) : boolean
+}
+class GPay {
+    + makePayment (amount, float) : boolean
+}
+class ApplePay {
+    + makePayment (amount, float) : boolean
+}
+class CreditCard {
+    + makePayment (amount, float) : boolean
+}
+
+'This doubles as a basket/cart and an order
+class Order {
+    - id : int
+    - date : dateTime
+    - isPaid : boolean
+    - total : float
+    + getTotal() : float
+    + payForItems() : void
+}
+class Concert {
+    - name : String
+    - date : dateTime
+    - venue : String
+    - availability : int
+    + getConcert (name : String) : String[]
+    + getConcert (date : dateTime) : String[]
+    + getConcert (date : dateTime, venue : String) : String[]
+    + reduceAvailability (seats : int)
+    + addAvailability (seats: int)
+}
+@enduml
