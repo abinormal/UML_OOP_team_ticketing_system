@@ -24,10 +24,11 @@ interface OrderChannel {
     + getIP(): String
 }
 abstract Payment {
-    + {abstract} makePayment (amount, float) : boolean
+    + {abstract} makePayment (amount, float) : String
 }
 class User {
-    - id : int
+    'Use a UUID for the ID
+    - id : String
     - name : String
     - email : String
     - phone : int
@@ -50,21 +51,22 @@ class AppDesktop {
     + getIP(): String
 }
 class PayPal {
-    + makePayment (amount, float) : boolean
+    + makePayment (amount, float) : String
 }
 class GPay {
-    + makePayment (amount, float) : boolean
+    + makePayment (amount, float) : String
 }
 class ApplePay {
-    + makePayment (amount, float) : boolean
+    + makePayment (amount, float) : String
 }
 class CreditCard {
-    + makePayment (amount, float) : boolean
+    + makePayment (amount, float) : String
 }
 
 'This doubles as a basket/cart and an order
 class Order {
-    - id : int
+    'Use a UUID for the ID
+    - id : String
     - date : dateTime
     - isPaid : boolean
     - total : float
